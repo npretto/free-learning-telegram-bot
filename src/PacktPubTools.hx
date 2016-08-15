@@ -34,12 +34,19 @@ class PacktPubTools
 		if (imagelink.length > 0)
 		{
 			book.imagesrc = imagelink[0].getAttribute('data-original');
+			if (book.imagesrc.substr(0, 2) == "//")
+			{
+				book.imagesrc = "https:" + book.imagesrc;
+			}
+			book.imagesrc = book.imagesrc.replace(" ", "%20");
 		}else
 		{
 			errors.push("book image title not found");
 		}
+
+		book.description = "na";
+		book.isbn = "aaa";
 		
-		trace(titles);
 		return book;
 	}
 	

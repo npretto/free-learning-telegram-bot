@@ -51,7 +51,7 @@ class TelegramBot
 		
 		var file = File.read(image_path);
 		var bla:StringInput = new StringInput(file.readAll().toString());
-		req.fileTransfer("photo", "tesasdas mg.jpg", bla, bla.length);
+		req.fileTransfer("photo", "d2s2s2s.jpg", bla, bla.length);
 		req.onStatus = function(status:Int){
 			trace('status: $status');
 			trace(req.responseHeaders);
@@ -61,7 +61,7 @@ class TelegramBot
 		{
 			trace("ERROR:" + msg);
 		}
-		req.cnxTimeout = 120;
+		req.cnxTimeout = 180;
 		req.customRequest(true, new BytesOutput());
 	}
 	
