@@ -28,14 +28,4 @@ class Book extends Object
 		
 	}
 
-	private function get_imagePath():String
-	{
-		return 'books/$fileName.md';
-	}
-	private function get_mdPath():String
-	{
-		return 'imgs/$fileName.jpg';
-	}
-	
-	
 }
