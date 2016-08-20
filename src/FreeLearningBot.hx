@@ -9,25 +9,26 @@ using StringTools;
 
 /**
  * ...
- * @author 
+ * @author
  */
 class FreeLearningBot
 {
 	var cnx:sys.db.Connection;
 	var page:String;
+	var image:String;
 
-	public function new() 
+	public function new()
 	{
 		setupDB();
-		
+
 		downloadPage();
 		//useCachedPage();
-		
+
 		cachePage();
 		trace("\nparsing the page");
 		var book = PacktPubTools.parseFreeLearningPage(page);
 		trace(book.imagesrc);
-		//downloadImage(book.imagesrc);
+		downloadImage(book.imagesrc);
 		if (true)//book.title != Book.manager.get(Book.manager.count()).title)
 		{
 			trace("\n\n\n\n");
@@ -42,42 +43,42 @@ class FreeLearningBot
 			message += '${book.description}\n';
 			message += '*Get it for free now:* http://bit.ly/free-learning-bot \n';
 			message += '*Check the reviews on your local amazon:* http://buuy.me/isbn/${book.isbn} \n';
-			
-			
-			
+
+
 			saveBookOnDisk(book, message);
 
-			
-			telegramBot.sendPhoto("@freelearningbooks", "cache.jpg");
+
+			telegramBot.sendPhoto("@freelearningbooks", image);
 			telegramBot.sendMessage("@freelearningbooks", message);
 		}
 		closeDB();
 	}
-	
-	function useCachedPage() 
+
+	function useCachedPage()
 	{
 		page = File.read("cache.html").readAll().toString();
 	}
-	
-	function downloadImage(path:String) 
+
+	function downloadImage(path:String)
 	{
 		trace('\ndownloading the image from $path');
-		File.write("cache.jpg").writeString(Http.requestUrl(path));
+		image = Http.requestUrl(path);
+		File.write("cache.jpg").writeString(image);
 	}
-	
-	function cachePage() 
+
+	function cachePage()
 	{
 		trace("\nsaving the page to cache.html...");
 		File.write("cache.html").writeString(page);
 	}
-	
-	function downloadPage() 
+
+	function downloadPage()
 	{
 		trace("downloading the page...");
 		page = PacktPubTools.getFreeLearningPage();
 	}
-	
-	function closeDB() 
+
+	function closeDB()
 	{
 		// close the connection and do some cleanup
 		sys.db.Manager.cleanup();
@@ -85,8 +86,8 @@ class FreeLearningBot
 		// Close the connection
 		cnx.close();
 	}
-	
-	function setupDB() 
+
+	function setupDB()
 	{
 		cnx = Sqlite.open("my-database.sqlite");
 
@@ -101,8 +102,8 @@ class FreeLearningBot
 			TableCreate.create(Book.manager);
 		}
 	}
-	
-	private function saveBookOnDisk(book:Book, message:String) 
+
+	private function saveBookOnDisk(book:Book, message:String)
 	{
 		var date = DateTools.format(Date.now(), "%Y-%m-%d-%M");
 		trace(date);
@@ -114,5 +115,5 @@ class FreeLearningBot
 		}
 		book.fileName = "$date";
 	}
-	
+
 }

@@ -6,7 +6,7 @@ using StringTools;
 
 /**
  * ...
- * @author 
+ * @author
  */
 class PacktPubTools
 {
@@ -15,7 +15,7 @@ class PacktPubTools
 	{
 		return Http.requestUrl("https://www.packtpub.com/packt/offers/free-learning");
 	}
-	
+
 	public static function parseFreeLearningPage(page:String):Book
 	{
 		var errors = new Array<String>();
@@ -29,7 +29,7 @@ class PacktPubTools
 		{
 			errors.push("book title not found");
 		}
-		
+
 		var imagelink = html.find(".dotd-main-book-image>a>img");
 		if (imagelink.length > 0)
 		{
@@ -46,9 +46,9 @@ class PacktPubTools
 
 		book.description = "na";
 		book.isbn = "aaa";
-		
+
 		return book;
 	}
-	
-	
+
+
 }

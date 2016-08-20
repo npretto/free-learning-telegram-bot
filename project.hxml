@@ -1,0 +1,7 @@
+-debug
+--each
+-lib HtmlParser
+-cp src
+-neko bin/freelearningbot.n
+-main Main
+-cmd Run.bat
