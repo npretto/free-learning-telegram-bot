@@ -50,8 +50,8 @@ class TelegramBot
 		}
 
 		var bla:StringInput = new StringInput(image);
-		trace(image);
-		trace(bla.length);
+		//trace(image);
+		//trace(bla.length);
 		req.fileTransfer("photo", "d2s2s2s.jpg", bla, bla.length);
 		req.onStatus = function(status:Int){
 			trace('status: $status');
@@ -67,7 +67,7 @@ class TelegramBot
 		var out = new BytesOutput();
 		// req.customRequest(true,new BytesOutput() );
 		req.request(true);
-	  trace(req.responseData);
+		trace(req.responseData);
 	}
 
 	public function loadTokenFromFile(path:String)

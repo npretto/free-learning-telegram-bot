@@ -27,15 +27,20 @@ class FreeLearningBot
 		cachePage();
 		trace("\nparsing the page");
 		var book = PacktPubTools.parseFreeLearningPage(page);
-		trace(book.imagesrc);
-		downloadImage(book.imagesrc);
-		if (true)//book.title != Book.manager.get(Book.manager.count()).title)
+		//trace(book.imagesrc);
+		
+		var lastBook:Book = Book.manager.search($title != null, { orderBy : -id, limit : 1}).first();
+		trace(lastBook);
+		
+		if (lastBook.title != book.title)//book.title != Book.manager.get(Book.manager.count()).title)
 		{
-			trace("\n\n\n\n");
+			downloadImage(book.imagesrc);
+			book.insert();
+			trace("\n\n\n\ninsertin book:");
 			trace(book);
 			trace("\n\n\n\n");
 
-			book.insert();
+			
 			var telegramBot = new TelegramBot();
 			telegramBot.loadTokenFromFile('.token');
 			var message = "New book available for free!\n";
@@ -44,9 +49,7 @@ class FreeLearningBot
 			message += '*Get it for free now:* http://bit.ly/free-learning-bot \n';
 			message += '*Check the reviews on your local amazon:* http://buuy.me/isbn/${book.isbn} \n';
 
-
 			saveBookOnDisk(book, message);
-
 
 			telegramBot.sendPhoto("@freelearningbooks", image);
 			telegramBot.sendMessage("@freelearningbooks", message);

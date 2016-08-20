@@ -18,14 +18,15 @@ class Book extends Object
 	
 	@:skip
 	public var fileName:Null<String>;
-	@:skip
-	public var mdPath(get,null):String;
-	//public var imagePath(get,null):String;
-
+	
 	public function new() 
 	{
 		super();
 		
 	}
-
+	
+	public override function toString()
+	{
+		return 'book#$id, "$title", isbn: $isbn';
+	}
 }
