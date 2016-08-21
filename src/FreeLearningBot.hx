@@ -32,7 +32,7 @@ class FreeLearningBot
 		var lastBook:Book = Book.manager.search($title != null, { orderBy : -id, limit : 1}).first();
 		trace(lastBook);
 		
-		if (lastBook.title != book.title)//book.title != Book.manager.get(Book.manager.count()).title)
+		if (lastBook == null || lastBook.title != book.title)
 		{
 			downloadImage(book.imagesrc);
 			book.insert();
@@ -48,9 +48,7 @@ class FreeLearningBot
 			message += '${book.description}\n';
 			message += '*Get it for free now:* http://bit.ly/free-learning-bot \n';
 			message += '*Check the reviews on your local amazon:* http://buuy.me/isbn/${book.isbn} \n';
-
 			saveBookOnDisk(book, message);
-
 			telegramBot.sendPhoto("@freelearningbooks", image);
 			telegramBot.sendMessage("@freelearningbooks", message);
 		}
@@ -108,7 +106,7 @@ class FreeLearningBot
 
 	private function saveBookOnDisk(book:Book, message:String)
 	{
-		var date = DateTools.format(Date.now(), "%Y-%m-%d-%M");
+		var date = DateTools.format(Date.now(), "%Y-%m-%d-%H-%M");
 		trace(date);
 		try{
 			File.saveContent('books/$date.md',message);
