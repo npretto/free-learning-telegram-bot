@@ -39,7 +39,10 @@ class FreeLearningBot
 		
 		if (sendAnyUpdate || lastBook == null || lastBook.title != book.title)
 		{
+			PacktPubTools.parseBookPage(book);
 			downloadImage(book.imagesrc);
+			
+			
 			book.insert();
 			trace("\n\n\n\ninsertin book:");
 			trace(book);

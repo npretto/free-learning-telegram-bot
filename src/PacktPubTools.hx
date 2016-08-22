@@ -43,11 +43,70 @@ class PacktPubTools
 		{
 			errors.push("book image title not found");
 		}
-
-		book.description = "na";
+		
+		var bookLink = html.find(".dotd-main-book-image>a");
+		if (bookLink.length > 0)
+		{
+			var bookLink = bookLink[0].getAttribute('href');
+			if (bookLink.substr(0, 1) == "/")
+			{
+				bookLink = "https://www.packtpub.com" + bookLink;
+			}
+			book.bookLink = bookLink;
+		}else
+		{
+			errors.push("book link title not found");
+		}
+		
+		
+		var descriptionElement = html.find(".dotd-main-book-summary");
+		if (descriptionElement.length > 0)
+		{
+			
+			var description = "";
+			try
+			{
+				description += StringTools.trim(descriptionElement[0].children[3].innerText) + "\n";
+			}catch (e:Dynamic)
+			{
+				trace("could not find the description");
+			}
+			try
+			{
+				description += StringTools.trim(descriptionElement[0].children[4].innerText) + "\n";
+			}catch (e:Dynamic)
+			{
+				trace("could not find the description");
+			}
+			
+			//trace("\n\n\n");
+			//trace(description);
+			//trace("\n\n\n");
+			
+			book.description = description;
+		}
+		
+		
 		book.isbn = "aaa";
 
 		return book;
+	}
+	
+	static public function parseBookPage(book:Book) 
+	{
+		//var page = Http.requestUrl(book.bookLink);
+		//var html = new HtmlDocument(page,true);
+		//var descriptionElement = html.find(".book-info-bottom-indetail-text");
+		//if (descriptionElement.length > 0)
+		//{
+			//var description = StringTools.trim(descriptionElement[0].innerText);
+			//trace("\n\n\n");
+			//trace(description);
+			//trace("\n\n\n");
+			//
+			//book.description = description;
+		//}
+		
 	}
 
 

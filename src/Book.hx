@@ -18,6 +18,8 @@ class Book extends Object
 	
 	@:skip
 	public var fileName:Null<String>;
+	@:skip
+	public var bookLink:String;
 	
 	public function new() 
 	{
@@ -27,6 +29,6 @@ class Book extends Object
 	
 	public override function toString()
 	{
-		return 'book#$id, "$title", isbn: $isbn';
+		return 'book#$id, "$title", isbn: $isbn, link: $bookLink';
 	}
 }
