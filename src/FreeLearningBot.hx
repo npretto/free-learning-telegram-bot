@@ -19,6 +19,11 @@ class FreeLearningBot
 
 	public function new()
 	{
+		var chatId:String = "45047370";  //me
+		//chatId = "@freelearningbooks"; //the channel
+		var sendAnyUpdate = true;
+
+			
 		setupDB();
 
 		downloadPage();
@@ -32,7 +37,7 @@ class FreeLearningBot
 		var lastBook:Book = Book.manager.search($title != null, { orderBy : -id, limit : 1}).first();
 		trace(lastBook);
 		
-		if (lastBook == null || lastBook.title != book.title)
+		if (sendAnyUpdate || lastBook == null || lastBook.title != book.title)
 		{
 			downloadImage(book.imagesrc);
 			book.insert();
@@ -43,14 +48,13 @@ class FreeLearningBot
 			
 			var telegramBot = new TelegramBot();
 			telegramBot.loadTokenFromFile('.token');
-			var message = "New book available for free!\n";
-			message += '*${book.title}*\n\n';
+			var message = '*${book.title}* is now available for free\n';
 			message += '${book.description}\n';
-			message += '*Get it for free now:* http://bit.ly/free-learning-bot \n';
+			message += '*Get it for free now:* [https://www.packtpub.com/packt/offers/free-learning](http://bit.ly/free-learning-bot) \n';
 			message += '*Check the reviews on your local amazon:* http://buuy.me/isbn/${book.isbn} \n';
 			saveBookOnDisk(book, message);
-			telegramBot.sendPhoto("@freelearningbooks", image);
-			telegramBot.sendMessage("@freelearningbooks", message);
+			telegramBot.sendPhoto(chatId, image);
+			telegramBot.sendMessage(chatId, message);
 		}
 		closeDB();
 	}
