@@ -111,7 +111,22 @@ class PacktPubTools
 			isbn = html.find(".book-info-isbn13")[0].children[1].innerText;
 		}
 		
+		var hdImage = "";
+		try{
+			hdImage = html.find(".bookimage")[0].getAttribute('src');
+			if (hdImage.substr(0, 2) == "//")
+			{
+				hdImage = "https:" + hdImage;
+			}
+			hdImage = hdImage.replace(" ", "%20");
+			book.imagesrc = hdImage;
+		}catch (e:Dynamic)
+		{
+			trace("ERROR> could not find hd image:" + e);
+		}
+		
 		book.isbn = isbn;
+		
 	}
 
 
