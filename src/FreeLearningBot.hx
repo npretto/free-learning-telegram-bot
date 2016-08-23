@@ -20,9 +20,12 @@ class FreeLearningBot
 	public function new()
 	{
 		var chatId:String = "45047370";  //me
-		//chatId = "@freelearningbooks"; //the channel
+		
 		var sendAnyUpdate = true;
 
+		
+		//chatId = "@freelearningbooks"; //the channel
+		//sendAnyUpdate = false;
 			
 		setupDB();
 
