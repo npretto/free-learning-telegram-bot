@@ -87,15 +87,13 @@ class PacktPubTools
 		}
 		
 		
-		book.isbn = "aaa";
-
 		return book;
 	}
 	
 	static public function parseBookPage(book:Book) 
 	{
-		//var page = Http.requestUrl(book.bookLink);
-		//var html = new HtmlDocument(page,true);
+		var page = Http.requestUrl(book.bookLink);
+		var html = new HtmlDocument(page,true);
 		//var descriptionElement = html.find(".book-info-bottom-indetail-text");
 		//if (descriptionElement.length > 0)
 		//{
@@ -107,6 +105,13 @@ class PacktPubTools
 			//book.description = description;
 		//}
 		
+		var isbn = "";
+		
+		try {
+			isbn = html.find(".book-info-isbn13")[0].children[1].innerText;
+		}
+		
+		book.isbn = isbn;
 	}
 
 
