@@ -59,33 +59,33 @@ class PacktPubTools
 		}
 		
 		
-		var descriptionElement = html.find(".dotd-main-book-summary");
-		if (descriptionElement.length > 0)
-		{
-			
-			var description = "";
-			try
-			{
-				description += StringTools.trim(descriptionElement[0].children[3].innerText) + "\n";
-			}catch (e:Dynamic)
-			{
-				trace("could not find the description");
-			}
-			try
-			{
-				description += StringTools.trim(descriptionElement[0].children[4].innerText) + "\n";
-			}catch (e:Dynamic)
-			{
-				trace("could not find the description");
-			}
-			
-			//trace("\n\n\n");
+		//var descriptionElement = html.find(".dotd-main-book-summary");
+		//if (descriptionElement.length > 0)
+		//{
+			//
+			//var description = "";
+			//try
+			//{
+				//description += StringTools.trim(descriptionElement[0].children[3].innerText) + "\n";
+			//}catch (e:Dynamic)
+			//{
+				//trace("could not find the description");
+			//}
+			//try
+			//{
+				//description += StringTools.trim(descriptionElement[0].children[4].innerText) + "\n";
+			//}catch (e:Dynamic)
+			//{
+				//trace("could not find the description");
+			//}
+			//
+			////trace("\n\n\n");
 			//trace(description);
-			//trace("\n\n\n");
-			
-			book.description = description;
-		}
-		
+			////trace("\n\n\n");
+			//
+			////book.description = description;
+		//}
+		//
 		
 		return book;
 	}

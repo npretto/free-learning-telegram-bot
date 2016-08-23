@@ -44,7 +44,7 @@ class FreeLearningBot
 			
 			
 			book.insert();
-			trace("\n\n\n\ninsertin book:");
+			trace("\n\n\n\ninserting book:");
 			trace(book);
 			trace("\n\n\n\n");
 
@@ -52,9 +52,13 @@ class FreeLearningBot
 			var telegramBot = new TelegramBot();
 			telegramBot.loadTokenFromFile('.token');
 			var message = '*${book.title}* is now available for free\n';
-			message += '${book.description}\n';
-			message += '*Get it for free now:* [https://www.packtpub.com/packt/offers/free-learning](http://bit.ly/free-learning-bot) \n';
+			if (book.description != null && book.description != "")
+				message += '${book.description}\n';
+				
 			message += '*Check the reviews on your local amazon:* http://buuy.me/isbn/${book.isbn} \n';
+
+			message += '*Get it for free now:* [https://www.packtpub.com/packt/offers/free-learning](http://bit.ly/free-learning-bot) \n';
+			
 			saveBookOnDisk(book, message);
 			telegramBot.sendPhoto(chatId, image);
 			telegramBot.sendMessage(chatId, message);
